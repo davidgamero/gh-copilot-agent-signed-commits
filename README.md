@@ -27,11 +27,13 @@ The agent uses the following pattern for creating signed commits:
 ```bash
 gh api --method POST \
   -H "Accept: application/vnd.github.v3+json" \
-  /repos/${{ github.repository }}/commits \
+  /repos/OWNER/REPO/git/commits \
   -f message="Your commit message" \
   -f tree=$(git write-tree) \
-  -f parents=$(git rev-parse HEAD)
+  -F parents[]=$(git rev-parse HEAD)
 ```
+
+Replace `OWNER/REPO` with your repository owner and name (e.g., `davidgamero/gh-copilot-agent-signed-commits`).
 
 ## Why Signed Commits?
 
